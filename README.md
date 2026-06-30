@@ -2,10 +2,10 @@
 # Final Project
 
 ## Theme
-TBA
+Surviving College Midterms
 
 ## Goal
-TBA
+Pass classes, avoid burnout and cramming 
 
 ## How to Compile
 
@@ -20,10 +20,16 @@ g++ *.cpp -o game
 ```
 
 ## How to Play
-TBA
+- Complete different activities that give/take time and sleep points
+- Must spend cetain amount of time studying to pass classes
+- Must replenish time to avoid cramming
+- must replenish sleep to avoid burnout 
 
 ## Classes
-- TBA
+- Player
+- Friend
+- Location
+- Item
 
 ## Extra Credit
-TBA
+Character Schedules? TBD 
