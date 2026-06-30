@@ -5,10 +5,9 @@ Surviving College Midterms
 
 ## Planned Classes
 - Player
-- Game
-- Map
-- Student
-- Professor
+- Location
+- Friend
+- Item
 
 ## Limited Resource
 - Time
