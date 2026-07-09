@@ -2,6 +2,8 @@
 #define STUDENT_H
 
 #include "Character.h"
+#include "Item.h"
+#include <vector>
 
 class Student : public Character {
     private:
@@ -10,7 +12,7 @@ class Student : public Character {
         int FriendshipPoints;
         int CurrentDay;
         string currentLocation;
-        string inventory[7];
+        vector<string> inventory;
     public:
 
         Student(string name, string location, int EnergyPoints, int FriendshipPoints, int CurrentDay, int studyHours, string inventory[7]);

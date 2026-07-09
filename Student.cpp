@@ -47,21 +47,27 @@ string Student::getInventory(int index) {
 }
 
 void Student::moveTo(string locationName) {
-    location = locationName;
+    setLocation(locationName);
 }
 string Student::getCurrentLocation() {
-    return location;
+    return getLocation();
 }
 
 void Student::addItem(Item item) {
-    
+    inventory.push_back(item.getName());
 }
 void Student::displayInventory() {
+    cout << "Inventory: " << endl;
+    for (int i = 0; i < inventory.size(); i++) {
+        if (inventory[i] != "") {
+            cout << "- " << inventory[i] << endl;
+        }
+    }
     
 }
 
 bool Student::hasItem(string itemName) {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             return true;
         }
@@ -69,7 +75,7 @@ bool Student::hasItem(string itemName) {
     return false;
 }
 void Student::removeItem(string itemName) {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             inventory[i] = "";
             break;
