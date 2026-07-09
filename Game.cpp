@@ -13,6 +13,39 @@ Game::Game(Student P, Friend fL[5], string Loc[6], string bI[8])
     }
 }
 
+void Game::CreatePlayer(Student P) {
+    cout << "Choose a name for your character: " << endl;
+    cout << "1. Straight A Student" << endl;
+    cout << "2. Social Butterfly" << endl;
+    cout << "3. Sleepy Student" << endl;
+    cout << "4. Caffeine Addict" << endl;
+    cout << "5. Overachiever" << endl;
+    cout << "Enter the number corresponding to your choice: ";
+    int playerName;
+    cin >> playerName;
+    switch (playerName) {
+        case 1:
+            P.setName("Straight A Student");
+            break;
+        case 2:
+            P.setName("Social Butterfly");
+            break;
+        case 3:
+            P.setName("Sleepy Student");
+            break;
+        case 4:
+            P.setName("Caffeine Addict");
+            break;
+        case 5:
+            P.setName("Overachiever");
+            break;
+        default:
+            cout << "Invalid choice. Defaulting to 'Straight A Student'." << endl;
+            P.setName("Straight A Student");
+    }
+cout << "Hello, " << P.getName() << "! You start with " << P.getEnergy() << " energy points and " << P.getFriendship() << " friendship points." << endl;
+cout << "Let's begin your journey to survive midterms!" << endl;
+}
 
 
 
@@ -29,7 +62,38 @@ void Game::startGame() {
 
 
 
+void Game::introduceCharacters() {
+    cout << "Meet the other characters in the game:" << endl;
+    cout << "1. Eleanor - A studious friend who loves to read in the library." << endl;
+    cout << "2. Daniel - A friendly and outgoing friend who enjoys socializing in the dining hall." << endl;
+    cout << "3. Maya - A fitness enthusiast who is always at the gym." << endl;
+    cout << "4. Professor Mosunov - A strict but fair professor that holds study hall sessions in the classroom." << endl;
+    cout << "5. Kayra - A laid-back roommate who enjoys relaxing in the dorm." << endl;
+}
 
+void Game::introduceItems() {
+    cout << "Here are the items you need to collect in the game:" << endl;
+    cout << "1. Textbook - Helps you study and increase your study hours." << endl;
+    cout << "2. Laptop - Essential for completing assignments and studying." << endl;
+    cout << "3. Notebook - Useful for taking notes during study sessions." << endl;
+    cout << "4. Pen - A basic tool for writing and note-taking." << endl;
+    cout << "5. Calculator - Helps with solving mathematical problems." << endl;
+    cout << "6. Charger - Keeps your devices powered up and levels up your friendship points." << endl;
+    cout << "7. Water Bottle - Keeps you hydrated and energized." << endl;
+    cout << "8. Sandwich - Provides a quick energy boost when you're hungry." << endl;
+
+    cout << "Collect all 8 items to complete your backpack and increase your chances of surviving midterms!" << endl;
+    cout << "You can find these items in various locations throughout the game, such as the store, library, and dining hall." << endl;
+}
+
+void Game::introduceLocations() {
+    cout << "Here are the places you can go in the game:" << endl;
+    cout << "1. Library - go here to gain study hours. It will cost you energy." << endl;
+    cout << "2. Dorm - go here to rest and gain enery." << endl;
+    cout << "3. Dining Hall - go here to eat/drink and gain energy." << endl;
+    cout << "4. Classroom - go here to gain study hours." << endl;
+    cout << "5. Store - go here to buy items and complete your backpack bundle." << endl;
+}
 void Game::displayDashboard() {
     cout << "Day: " << player.getCurrentDay() << " / 7" << endl;
     cout << "Energy Points: " << player.getEnergy() << endl;

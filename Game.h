@@ -28,6 +28,10 @@ class Game {
         Game(Student player, Friend friendList[5], string locations[6], string bundleItems[8]);
 
         void startGame();
+        void CreatePlayer(Student P);
+        void introduceCharacters();
+        void introduceItems();
+        void introduceLocations();
         void displayDashboard();
         void displayMap();
         void showMainMenu();
