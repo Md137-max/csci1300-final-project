@@ -82,3 +82,10 @@ void Student::removeItem(string itemName) {
         }
     }
 }
+
+ int Student::getTiredStudent() {
+    return TiredStudent;
+}
+void Student::setTiredStudent(int amount) {
+    TiredStudent = amount;
+}

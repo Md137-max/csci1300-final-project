@@ -11,6 +11,7 @@ class Student : public Character {
         int EnergyPoints;
         int FriendshipPoints;
         int CurrentDay;
+        int TiredStudent;
         string currentLocation;
         vector<string> inventory;
     public:
@@ -35,5 +36,8 @@ class Student : public Character {
 
         bool hasItem(string itemName);
         void removeItem(string itemName);
+
+        int getTiredStudent();
+        void setTiredStudent(int amount);
 };
 #endif
