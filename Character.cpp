@@ -1,0 +1,21 @@
+#include "Character.h"
+
+
+Character::Character(string n, string Loc) {
+    name = n;
+    location = Loc;
+}
+    
+    string Character::getLocation() {
+            return location;
+        }
+    string Character::getName() {
+            return name;
+        }
+    void Character::setName(string newName) {
+            name = newName;
+        }
+
+    void Character::setLocation(string newLocation) {
+            location = newLocation;
+        }
