@@ -53,13 +53,17 @@ while (true) {
 
     // Ask player what they want to do and process choice
     game.showMainMenu();
-    int choice = 0;
+
+
+    int choice;
+
     if(!(cin >> choice)) { //Validate input
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "Invald answer - try again!" << endl;
         continue;
     };
+    
     game.processChoice(choice);
     TimesChoice++;
 
@@ -67,16 +71,19 @@ while (true) {
     if (game.checkWin()) {
         game.displayEnding();
         break;
-    } else if (game.checkBurnout()) {
+    }
+     if (game.checkBurnout()) {
         game.displayEnding();
         break;
-    } else if (game.checkLoss()) {
+    } 
+    
+    if (game.checkLoss()) {
         game.displayEnding();
         break;
     }
 
     //Manage time based on activities
-    if (TimesChoice > 4) {
+    if (TimesChoice >= 5) {
         game.endDay();
         TimesChoice = 0;
         

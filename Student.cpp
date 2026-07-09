@@ -37,12 +37,16 @@ void Student::setStudyHours(int hours) {
 int Student::getStudyHours() {
     return studyHours;
 }
-void Student::setInventory(string item, int index) {
-    inventory[index] = item;
+void Student::setInventory(string item) {
+    inventory.push_back(item);
 }
 string Student::getInventory(int index) {
-    return inventory[index];
+    if (index >= 0 && static_cast<size_t>(index) < inventory.size()) {
+        return inventory[index];
+    }
+    return "";
 }
+
 
 void Student::moveTo(string locationName) {
     setLocation(locationName);
@@ -56,8 +60,8 @@ void Student::addItem(Item item) {
 }
 void Student::displayInventory() {
     cout << "Inventory: " << endl;
-    for (int i = 0; i < inventory.size(); i++) {
-        if (inventory[i] != "") {
+    for (size_t i = 0; i < inventory.size(); i++) {
+        if (!inventory[i].empty()) {
             cout << "- " << inventory[i] << endl;
         }
     }
@@ -65,7 +69,7 @@ void Student::displayInventory() {
 }
 
 bool Student::hasItem(string itemName) {
-    for (int i = 0; i < inventory.size(); i++) {
+    for (size_t i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             return true;
         }
@@ -73,7 +77,7 @@ bool Student::hasItem(string itemName) {
     return false;
 }
 void Student::removeItem(string itemName) {
-    for (int i = 0; i < inventory.size(); i++) {
+    for (size_t i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             inventory[i] = "";
             break;
@@ -86,4 +90,8 @@ void Student::removeItem(string itemName) {
 }
 void Student::setTiredStudent(int amount) {
     TiredStudent = amount;
+}
+
+int Student::getInventorySize() {
+    return inventory.size();
 }

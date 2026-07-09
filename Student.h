@@ -26,7 +26,7 @@ class Student : public Character {
         int getCurrentDay();
         void setStudyHours(int hours);
         int getStudyHours();
-        void setInventory(string item, int index);
+        void setInventory(string item);
         string getInventory(int index);
 
         void moveTo(string locationName);
@@ -40,5 +40,7 @@ class Student : public Character {
 
         int getTiredStudent();
         void setTiredStudent(int amount);
+
+        int getInventorySize(); 
 };
 #endif

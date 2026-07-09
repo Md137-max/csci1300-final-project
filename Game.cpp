@@ -139,7 +139,9 @@ void Game::showMainMenu() {
     processChoice(dispalyOption);
 }
 
-
+void Game::displayInventory() {
+    player.displayInventory();
+}
 
 void Game::processChoice(int choice) {
     if (choice == 1) {
@@ -149,6 +151,7 @@ void Game::processChoice(int choice) {
     } else if (choice == 3) {
         player.displayInventory();
     } else if (choice == 4) {
+        cout << "Checking backpack..." << endl;
         int progress = 0;
         for (int i = 0; i < 8; i++) {
             string item = player.getInventory(i);
@@ -156,6 +159,7 @@ void Game::processChoice(int choice) {
         }
         cout << "Backpack progress: " << progress << " / 8" << endl;
     } else if (choice == 5) {
+        cout << "We are ending the day! See you tomorrow" << endl;
         endDay(); }
     
      else {
@@ -169,66 +173,95 @@ void Game::processChoice(int choice) {
 void Game::movePlayer() {
     string newLocation;
     cout << "Where would you like to move? (Dorm, Library, Dining Hall, Gym, Classroom, Store)" << endl;
-    cin >> newLocation;
+    cin.ignore();
+    getline(cin, newLocation);
     player.moveTo(newLocation);
     cout << "You moved to " << newLocation << "." << endl;
+    locationMenu(newLocation);
 }
-
 
 
 
 void Game::locationMenu(string location) {
 
+    cout << "you are at " << location << endl;
+
+    int choice;
+
     if (location == "Dorm") {
         cout << "You are in the Dorm. You can rest here to regain energy." << endl;
         player.setEnergy(player.getEnergy() + 5);
         cout << "Your roommate Kayra is here. Would you like to talk to her and increase your friendship points (-1 Energy point)?" << endl;
-        cout << "1. Yes" << endl;
-        cout << "2. No" << endl;
-        int choice;
+    
+        cout << "What would you like to do?" << endl;
+        cout << "1. Rest (+5 energy)" << endl;
+        cout << "2. Talk to Kayra" << endl;
+        cout << "3. Leave" << endl;
+
         cin >> choice;
+
         if (choice == 1) {
+            player.setEnergy(player.getEnergy() + 5);
+        }
+        else if (choice == 2) {
             talkToFriend("Kayra");
-            player.setEnergy(player.getEnergy() - 1);
             cout << "You talked to Kayra and increased your friendship points!" << endl;
         }
+    }
 
+           
 
-    } else if (location == "Library") {
+    else if (location == "Library") {
         cout << "You are in the Library. You can study here to increase your study hours." << endl;
         cout << "Your friend Eleanor is here. You can study with her to increase your friendship points." << endl;
-        player.setStudyHours(player.getStudyHours() + 2);
-        player.setEnergy(player.getEnergy() - 2);
-        cout << "Would you like to talk to Eleanor and increase your friendship points (-1 Energy point)?" << endl;
-        cout << "1. Yes" << endl;
-        cout << "2. No" << endl;
-        int choice;
+        cout << "What would you like to do?" << endl;
+        cout << "1. Study (+2 study hours, -2 energy)" << endl;
+        cout << "2. Talk to Eleanor (+friendship, -energy)" << endl;
+        cout << "3. Leave" << endl;
+
         cin >> choice;
+
         if (choice == 1) {
-            talkToFriend("Eleanor");
-            cout << "You studied with Eleanor and increased your friendship points!" << endl;
-            player.setEnergy(player.getEnergy() - 1);
+            player.setStudyHours(player.getStudyHours() + 2);
+            player.setEnergy(player.getEnergy() - 2);
+            cout << "You studied in the library." << endl;
         }
-        player.setFriendship(player.getFriendship() + 1);
+        else if (choice == 2) {
+            talkToFriend("Eleanor");
+            player.setEnergy(player.getEnergy() - 1);
+            cout << "You talked to Eleanor." << endl;
+        }
+        else if (choice == 3) {
+            cout << "Leaving the library." << endl;
+        }
+    }
 
 
-    } else if (location == "Dining Hall") {
+    if (location == "Dining Hall") {
         cout << "You are in the Dining Hall. You can eat here to regain energy." << endl;
         cout << "Your friend Daniel is here. You can eat with him to increase your friendship points." << endl;
-        cout << "Would you like to talk to Daniel and increase your friendship points (-1 Energy point)?" << endl;
-        cout << "1. Yes" << endl;
-        cout << "2. No" << endl;
-        int choice;
+        cout << "What would you like to do?" << endl;
+        cout << "1. Talk to Daniel and increase your friendship points (-1 energy, +1 friendship)" << endl;
+        cout << "2. Eat a meal (+5 energy points)" << endl;
+        cout << "3. Leave" << endl;
+
         cin >> choice;
+
         if (choice == 1) {
-            talkToFriend("Daniel");
-            cout << "You ate with Daniel and increased your friendship points!" << endl;
+            player.setFriendship(player.getFriendship() + 1);
             player.setEnergy(player.getEnergy() - 1);
+            cout << "You talked about your exams with Daniel" << endl;
         }
-        player.setEnergy(player.getEnergy() + 3);
+        else if (choice == 2) {
+            player.setEnergy(player.getEnergy() + 5);
+            cout << "You ate a yummy meal and feel refreshed." << endl;
+        }
+        else if (choice == 3) {
+            cout << "Leaving the Dining Hall." << endl;
+        }
+    }
 
-
-    } else if (location == "Gym") {
+    else if (location == "Gym") {
         cout << "You are in the Gym. You can exercise here with your friend Maya to increase your friendship points." << endl;
         cout << "Talk to Maya (-2 Energy points)?" << endl;
         cout << "1. Yes" << endl;
@@ -239,11 +272,14 @@ void Game::locationMenu(string location) {
             cout << "Hello, Maya! Let's exercise together! " << endl;
             talkToFriend("Maya");
             player.setEnergy(player.getEnergy() - 2);
+            player.setFriendship(player.getFriendship() + 3);
+        if (choice == 2) {
+            cout << "Enjoy some alone time" << endl;
+        }
         }
 
-        player.setFriendship(player.getFriendship() + 3);
         
-
+        
 
     } else if (location == "Classroom") {
         cout << "You are in the Classroom. You can attend study hall here to increase your study hours (-1 Energy point)." << endl;
@@ -264,6 +300,7 @@ void Game::locationMenu(string location) {
                 player.setStudyHours(player.getStudyHours() + 2);
                 cout << "You did extra credit work! Your study hours increased by 2, but you lost 5 energy points." << endl;
             } else {
+
                 cout << "You don't have enough energy to do extra credit work." << endl;
             }
         } else {
@@ -304,6 +341,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Textbook", "bundle"));
+            player.setInventory("Textbook");
             cout << "You spent 10 energy points." << endl;
         player.setEnergy(player.getEnergy() - 10);
         }
@@ -318,6 +356,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Laptop", "bundle"));
+            player.setInventory("Laptop");
             cout << "You spent 15 energy points." << endl;
         player.setEnergy(player.getEnergy() - 15);
         }
@@ -332,6 +371,7 @@ void Game::ProcessStoreChoice(int choice) {
         else {
             player.addItem(Item("Notebook", "bundle"));
             cout << "You spent 5 energy points." << endl;
+            player.setInventory("Notebook");
             player.setEnergy(player.getEnergy() - 5);
         }
     }
@@ -344,6 +384,7 @@ void Game::ProcessStoreChoice(int choice) {
         else {
             player.addItem(Item("Pen", "bundle"));
             cout << "You spent 5 energy points." << endl;
+            player.setInventory("Pen");
             player.setEnergy(player.getEnergy() - 5);
         }
         
@@ -356,6 +397,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Calculator", "bundle"));
+            player.setInventory("Calculator");
             cout << "You spent 10 energy points." << endl;
             player.setEnergy(player.getEnergy() - 10);
         }
@@ -368,6 +410,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Charger", "bundle"));
+            player.setInventory("Charger");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -380,6 +423,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Water Bottle", "bundle"));
+            player.setInventory("Water Bottle");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -392,6 +436,7 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Sandwich", "bundle"));
+            player.setInventory("Sandwich");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -425,14 +470,20 @@ void Game::talkToFriend(string friendName) {
 
 void Game::talkToCharacter() {
     if (player.getCurrentLocation() == "Library") {
+        cout << "Let's talk to Eleanor! You gain one friendship point, but it costs you one energy point." << endl;
+        cout << "Eleanor loves to spend time reading in the library and drinking coffee" << endl;
         talkToFriend("Eleanor");
     } else if (player.getCurrentLocation() == "Dining Hall") {
+        cout <<  "Let's talk to Daniel! You gain one friendship point, but it costs you one energy point." << endl;
         talkToFriend("Daniel");
     } else if (player.getCurrentLocation() == "Gym") {
+        cout <<  "Let's talk to Maya! You gain one friendship point, but it costs you one energy point." << endl;
         talkToFriend("Maya");
     } else if (player.getCurrentLocation() == "Classroom") {
+         cout <<  "Let's talk to Prof. Mosunov! You gain one friendship point, but it costs you one energy point." << endl;
         talkToFriend("Professor Mosunov");
     } else if (player.getCurrentLocation() == "Dorm") {
+         cout <<  "Let's talk to Kayra! You gain one friendship point, but it costs you one energy point." << endl;
         talkToFriend("Kayra");
     } else {
         cout << "There is no one to talk to here." << endl;
@@ -443,8 +494,10 @@ void Game::talkToCharacter() {
 
 
 void Game::endDay() {
+    int currentDay = player.getCurrentDay();
     cout << "Ending the day..." << endl;
-   player.setCurrentDay(player.getCurrentDay() + 1);
+     player.setCurrentDay(currentDay + 1);
+     cout << "Day " << player.getCurrentDay() << " begins!" << endl;
 }
 
 
@@ -468,6 +521,24 @@ bool Game::checkBurnout() {
 
 
 
+bool Game::isBundleComplete() {
+    if (player.getInventorySize() < 8) {
+        return false;
+    }
+
+    if( player.hasItem("Laptop") &&
+           player.hasItem("Notebook") &&
+           player.hasItem("Pen") &&
+           player.hasItem("Charger") &&
+           player.hasItem("Water Bottle") &&
+           player.hasItem("Sandwich") &&
+           player.hasItem("Textbook") &&
+           player.hasItem("Calculator")
+) {
+    return true;
+}
+return false;
+}
 
 bool Game::checkLoss() {
     if (player.getEnergy() <= 0 || player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
@@ -476,7 +547,12 @@ bool Game::checkLoss() {
     return false;
 }
 
-
+bool Game::CheckIfCompleteBundle(){
+    if (isBundleComplete()) {
+        return true;
+    }
+    return false;
+}
 
 
 void Game::displayEnding() {
@@ -486,7 +562,11 @@ void Game::displayEnding() {
         cout << "Game Over! You have lost the game!" << endl;
     } else if (checkBurnout()) {
         cout << "You have burned out! Better luck next time!" << endl;
-    } else {
+    }
+    else if (!CheckIfCompleteBundle()) {
+        cout << "Backpack items missing, you have failed midterms! Better luck next time" << endl;
+    }
+     else {
         cout << "The game is still ongoing." << endl;
     }
 }

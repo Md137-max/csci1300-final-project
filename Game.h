@@ -45,8 +45,10 @@ class Game {
         bool checkWin();
         bool checkBurnout();
         bool checkLoss();
+        bool isBundleComplete();
         void displayEnding();
         void talkToFriend(string friendName);
+        bool CheckIfCompleteBundle();
 
 };
 
