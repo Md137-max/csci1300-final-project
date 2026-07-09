@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Item.h"
 #include <vector>
+#include <string>
 
 class Student : public Character {
     private:
@@ -16,7 +17,7 @@ class Student : public Character {
         vector<string> inventory;
     public:
 
-        Student(string name, string location, int EnergyPoints, int FriendshipPoints, int CurrentDay, int studyHours, string inventory[7]);
+        Student(string name, string location);
         void setEnergy(int amount);
         int getEnergy();
         void setFriendship(int amount);

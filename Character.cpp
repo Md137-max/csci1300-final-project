@@ -1,9 +1,9 @@
 #include "Character.h"
 
 
-Character::Character(string n, string Loc) {
+Character::Character(string n, string loc) {
     name = n;
-    location = Loc;
+    location = loc;
 }
     
     string Character::getLocation() {

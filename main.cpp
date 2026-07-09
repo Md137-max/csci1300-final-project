@@ -24,17 +24,23 @@ int main() {
     // Display final ending
     
 //Start game
-    
-    Game game(Student("Player", "Dorm", 20, 0, 1, 0),
-              {Friend("Eleanor", "Library", 10),
-               Friend("Daniel", "Dining Hall", 10),
-               Friend("Maya", "Gym", 10),
-               Friend("Professor Mosunov", "Classroom", 10),
-               Friend("Kayra", "Dorm", 10)},
-              {"Dorm", "Library", "Dining Hall", "Gym", "Classroom", "Store"},
-              {"Textbook", "Laptop", "Notebook", "Pen", "Calculator", "Charger", "Water Bottle", "Sandwich"});
 
-    game.startGame();
+         
+        Friend friends[5] = {
+            Friend ("Eleanor", "Library", 10),
+            Friend("Daniel", "Dining Hall", 10),
+            Friend("Maya", "Gym", 10),
+            Friend("Professor Mosunov", "Classroom", 10),
+            Friend("Kayra", "Dorm", 10)
+        };
+        string locations[6] = {
+              "Dorm", "Library", "Dining Hall", "Gym", "Classroom", "Store"};
+        string bundleItems[8] =
+              {"Textbook", "Laptop", "Notebook", "Pen", "Calculator", "Charger", "Water Bottle", "Sandwich"};
+
+        Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
+    
+game.startGame();
 
 
 int TimesChoice = 0;
@@ -48,7 +54,12 @@ while (true) {
     // Ask player what they want to do and process choice
     game.showMainMenu();
     int choice = 0;
-    cin >> choice;
+    if(!(cin >> choice)) { //Validate input
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "Invald answer - try again!" << endl;
+        continue;
+    };
     game.processChoice(choice);
     TimesChoice++;
 
@@ -64,13 +75,13 @@ while (true) {
         break;
     }
 
+    //Manage time based on activities
     if (TimesChoice > 4) {
         game.endDay();
-        break;
+        TimesChoice = 0;
+        
     }
 }
-
-
 
 return 0;
 }

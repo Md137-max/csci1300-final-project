@@ -1,18 +1,12 @@
 #include "Student.h"
 
-Student::Student(string n, string Loc, int EP, int FP, int CD, int SH, string inv[7]) 
-: Character(n, Loc) {
-    EnergyPoints = EP;
-    FriendshipPoints = FP;
-    CurrentDay = CD;
-    studyHours = SH;
-    for (int i = 0; i < 7; i++) {
-        inventory[i] = inv[i];
-    }
-    EnergyPoints = 20; // Initialize EnergyPoints to 20
-    FriendshipPoints = 0; // Initialize FriendshipPoints to 0
-    CurrentDay = 1; // Initialize CurrentDay to 1
-    studyHours = 0; // Initialize studyHours to 0
+Student::Student(string n, string loc) 
+: Character(n, loc) {
+    EnergyPoints = 20;
+    FriendshipPoints = 0;
+    CurrentDay = 1;
+    studyHours = 0;
+    TiredStudent = 0;
 }
 
 void Student::setEnergy(int amount) {
