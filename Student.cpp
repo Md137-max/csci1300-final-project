@@ -9,6 +9,10 @@ Student::Student(string n, string Loc, int EP, int FP, int CD, int SH, string in
     for (int i = 0; i < 7; i++) {
         inventory[i] = inv[i];
     }
+    EnergyPoints = 20; // Initialize EnergyPoints to 20
+    FriendshipPoints = 0; // Initialize FriendshipPoints to 0
+    CurrentDay = 1; // Initialize CurrentDay to 1
+    studyHours = 0; // Initialize studyHours to 0
 }
 
 void Student::setEnergy(int amount) {
