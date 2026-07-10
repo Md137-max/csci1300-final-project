@@ -13,7 +13,7 @@ Game::Game(Student P, Friend fL[5], string Loc[6], string bI[8])
     }
 }
 
-void Game::CreatePlayer(Student P) {
+void Game::CreatePlayer() {
     cout << "Choose a name for your character: " << endl;
     cout << "1. Straight A Student" << endl;
     cout << "2. Social Butterfly" << endl;
@@ -25,25 +25,25 @@ void Game::CreatePlayer(Student P) {
     cin >> playerName;
     switch (playerName) {
         case 1:
-            P.setName("Straight A Student");
+            player.setName("Straight A Student");
             break;
         case 2:
-            P.setName("Social Butterfly");
+            player.setName("Social Butterfly");
             break;
         case 3:
-            P.setName("Sleepy Student");
+            player.setName("Sleepy Student");
             break;
         case 4:
-            P.setName("Caffeine Addict");
+            player.setName("Caffeine Addict");
             break;
         case 5:
-            P.setName("Overachiever");
+            player.setName("Overachiever");
             break;
         default:
             cout << "Invalid choice. Defaulting to 'Straight A Student'." << endl;
-            P.setName("Straight A Student");
+            player.setName("Straight A Student");
     }
-cout << "Hello, " << P.getName() << "! You start with " << P.getEnergy() << " energy points and " << P.getFriendship() << " friendship points." << endl;
+cout << "Hello, " << player.getName() << "! You start with " << player.getEnergy() << " energy points and " << player.getFriendship() << " friendship points." << endl;
 cout << "Let's begin your journey to survive midterms!" << endl;
 }
 
@@ -58,6 +58,7 @@ void Game::startGame() {
    cout << "If your energy points drop to 0, or if you reach day 8, you will fail." << endl;
    cout << "If you become too tired from doing extra credit work or drinking too much caffeine, you will also fail." << endl;
    cout << "Good luck!" << endl;
+   
 }
 
 
@@ -126,7 +127,8 @@ void Game::displayMap() {
 
 
 void Game::showMainMenu() {
-     int dispalyOption;
+    int choice;
+
     cout << "What would you like to do?" << endl;
     cout << "1. Move to a new location" << endl;
     cout << "2. Talk to a character" << endl;
@@ -135,8 +137,14 @@ void Game::showMainMenu() {
     cout << "5. End the day" << endl;
 
    
-    cin >> dispalyOption;
-    processChoice(dispalyOption);
+    if(!(cin >> choice)) { //Validate input
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "Invald answer - try again!" << endl;
+        return;
+    }
+
+    processChoice(choice);
 }
 
 void Game::displayInventory() {
@@ -173,7 +181,7 @@ void Game::processChoice(int choice) {
 void Game::movePlayer() {
     string newLocation;
     cout << "Where would you like to move? (Dorm, Library, Dining Hall, Gym, Classroom, Store)" << endl;
-    cin.ignore();
+    cin.ignore(10000, '\n');
     getline(cin, newLocation);
     player.moveTo(newLocation);
     cout << "You moved to " << newLocation << "." << endl;
@@ -182,13 +190,13 @@ void Game::movePlayer() {
 
 
 
-void Game::locationMenu(string location) {
+void Game::locationMenu(string newLocation) {
 
-    cout << "you are at " << location << endl;
+    cout << "you are at " << newLocation << endl;
 
     int choice;
 
-    if (location == "Dorm") {
+    if (newLocation == "Dorm") {
         cout << "You are in the Dorm. You can rest here to regain energy." << endl;
         player.setEnergy(player.getEnergy() + 5);
         cout << "Your roommate Kayra is here. Would you like to talk to her and increase your friendship points (-1 Energy point)?" << endl;
@@ -211,7 +219,7 @@ void Game::locationMenu(string location) {
 
            
 
-    else if (location == "Library") {
+    else if (newLocation == "Library") {
         cout << "You are in the Library. You can study here to increase your study hours." << endl;
         cout << "Your friend Eleanor is here. You can study with her to increase your friendship points." << endl;
         cout << "What would you like to do?" << endl;
@@ -219,12 +227,14 @@ void Game::locationMenu(string location) {
         cout << "2. Talk to Eleanor (+friendship, -energy)" << endl;
         cout << "3. Leave" << endl;
 
+        int choice;
         cin >> choice;
 
         if (choice == 1) {
             player.setStudyHours(player.getStudyHours() + 2);
             player.setEnergy(player.getEnergy() - 2);
             cout << "You studied in the library." << endl;
+            
         }
         else if (choice == 2) {
             talkToFriend("Eleanor");
@@ -237,7 +247,7 @@ void Game::locationMenu(string location) {
     }
 
 
-    if (location == "Dining Hall") {
+    else if (newLocation == "Dining Hall") {
         cout << "You are in the Dining Hall. You can eat here to regain energy." << endl;
         cout << "Your friend Daniel is here. You can eat with him to increase your friendship points." << endl;
         cout << "What would you like to do?" << endl;
@@ -261,7 +271,7 @@ void Game::locationMenu(string location) {
         }
     }
 
-    else if (location == "Gym") {
+    else if (newLocation == "Gym") {
         cout << "You are in the Gym. You can exercise here with your friend Maya to increase your friendship points." << endl;
         cout << "Talk to Maya (-2 Energy points)?" << endl;
         cout << "1. Yes" << endl;
@@ -273,7 +283,8 @@ void Game::locationMenu(string location) {
             talkToFriend("Maya");
             player.setEnergy(player.getEnergy() - 2);
             player.setFriendship(player.getFriendship() + 3);
-        if (choice == 2) {
+        }
+        else if (choice == 2) {
             cout << "Enjoy some alone time" << endl;
         }
         }
@@ -281,7 +292,7 @@ void Game::locationMenu(string location) {
         
         
 
-    } else if (location == "Classroom") {
+     else if (newLocation == "Classroom") {
         cout << "You are in the Classroom. You can attend study hall here to increase your study hours (-1 Energy point)." << endl;
         player.setStudyHours(player.getStudyHours() + 1);
         player.setEnergy(player.getEnergy() - 1);
@@ -308,7 +319,7 @@ void Game::locationMenu(string location) {
         }
     }
 
-    } else if (location == "Store") {
+    } else if (newLocation == "Store") {
         cout << "You are in the Store. You can buy items here to add to your inventory." << endl;
         cout << "Available items: " << endl;
         cout << "1. Textbook (10 energy points)" << endl;
@@ -325,6 +336,7 @@ void Game::locationMenu(string location) {
         ProcessStoreChoice(itemChoice);
     } else {
         cout << "Invalid location." << endl;
+        cout << "Returning to main menu" << endl;
     }
 }
 

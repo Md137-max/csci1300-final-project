@@ -41,6 +41,10 @@ int main() {
         Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
     
 game.startGame();
+game.CreatePlayer();
+game.introduceCharacters();
+game.introduceItems();
+game.introduceLocations();
 
 
 int TimesChoice = 0;
@@ -49,23 +53,14 @@ while (true) {
     // Display dashboard / inventory / map
     game.displayDashboard();
     game.displayInventory();
-    game.displayMap();
+    game.displayMap(); //Will add later
 
+    
     // Ask player what they want to do and process choice
     game.showMainMenu();
 
-
-    int choice;
-
-    if(!(cin >> choice)) { //Validate input
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "Invald answer - try again!" << endl;
-        continue;
-    };
-    
-    game.processChoice(choice);
     TimesChoice++;
+
 
     // Check win/loss condition
     if (game.checkWin()) {
