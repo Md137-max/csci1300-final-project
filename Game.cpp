@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <fstream>
 
 Game::Game(Student P, Friend fL[5], string Loc[6], string bI[8])
     : player(P), friendList{fL[0], fL[1], fL[2], fL[3], fL[4]} {
@@ -118,9 +119,16 @@ void Game::displayDashboard() { // Display current stats
 
 
 
-void Game::displayMap() { //Complete later
+void Game::displayMap() { //use file I/O here
+ ifstream inFile("Map.txt");
+ if (!inFile.is_open()) {
+    cout << "Error: could not open Map.txt" << endl;
+    return;
+ }
+ string location;
+ string description;
 
-
+ inFile.close();
 }
 
 

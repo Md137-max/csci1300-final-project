@@ -53,7 +53,7 @@ while (true) {
     // Display dashboard / inventory / map
     game.displayDashboard();
     game.displayInventory();
-    game.displayMap(); //Will add later
+    game.displayMap(); //Use file I/O
 
     
     // Ask player what they want to do and process choice
