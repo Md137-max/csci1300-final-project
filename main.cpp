@@ -39,9 +39,9 @@ int main() {
               {"Textbook", "Laptop", "Notebook", "Pen", "Calculator", "Charger", "Water Bottle", "Sandwich"};
 
         Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
-    
-game.startGame();
+   
 game.CreatePlayer();
+game.startGame();
 game.introduceCharacters();
 game.introduceItems();
 game.introduceLocations();

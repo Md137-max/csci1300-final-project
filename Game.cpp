@@ -105,10 +105,9 @@ void Game::displayDashboard() {
     cout << "Inventory: ";
     
     int progress = 0;
-    for (int i = 0; i < 8; i++) {
-        string item = player.getInventory(i);
-        cout << item;
-        if (i < 7) cout << ", ";
+    for (int i = 0; i < player.getInventorySize(); i++) {
+    string item = player.getInventory(i);
+    cout << item << ", ";
         if (item != "") progress++;
     }
     cout << endl;
@@ -129,7 +128,7 @@ void Game::displayMap() {
 void Game::showMainMenu() {
     int choice;
 
-    cout << "What would you like to do?" << endl;
+    cout << "What would you like to do (pick a number 1-5)?" << endl;
     cout << "1. Move to a new location" << endl;
     cout << "2. Talk to a character" << endl;
     cout << "3. View your inventory" << endl;
@@ -180,7 +179,7 @@ void Game::processChoice(int choice) {
 
 void Game::movePlayer() {
     string newLocation;
-    cout << "Where would you like to move? (Dorm, Library, Dining Hall, Gym, Classroom, Store)" << endl;
+    cout << "Where would you like to move? (Dorm, Library, Dining Hall, Gym, Classroom, Store). Please type only one option." << endl;
     cin.ignore(10000, '\n');
     getline(cin, newLocation);
     player.moveTo(newLocation);
@@ -192,7 +191,6 @@ void Game::movePlayer() {
 
 void Game::locationMenu(string newLocation) {
 
-    cout << "you are at " << newLocation << endl;
 
     int choice;
 
@@ -309,7 +307,9 @@ void Game::locationMenu(string newLocation) {
             if (player.getEnergy() >= 5) {
                 player.setEnergy(player.getEnergy() - 5);
                 player.setStudyHours(player.getStudyHours() + 2);
+                player.setTiredStudent(player.getTiredStudent() + 1);
                 cout << "You did extra credit work! Your study hours increased by 2, but you lost 5 energy points." << endl;
+                cout << "Your burnout level increased +1" << endl;
             } else {
 
                 cout << "You don't have enough energy to do extra credit work." << endl;
@@ -321,7 +321,7 @@ void Game::locationMenu(string newLocation) {
 
     } else if (newLocation == "Store") {
         cout << "You are in the Store. You can buy items here to add to your inventory." << endl;
-        cout << "Available items: " << endl;
+        cout << "Please respond with a number (1-9). Available items: " << endl;
         cout << "1. Textbook (10 energy points)" << endl;
         cout << "2. Laptop (15 energy points)" << endl;
         cout << "3. Notebook (5 energy points)" << endl;
@@ -335,7 +335,7 @@ void Game::locationMenu(string newLocation) {
         cin >> itemChoice;
         ProcessStoreChoice(itemChoice);
     } else {
-        cout << "Invalid location." << endl;
+        cout << "Invalid location. Try again next time." << endl;
         cout << "Returning to main menu" << endl;
     }
 }
@@ -353,7 +353,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Textbook", "bundle"));
-            player.setInventory("Textbook");
             cout << "You spent 10 energy points." << endl;
         player.setEnergy(player.getEnergy() - 10);
         }
@@ -368,7 +367,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Laptop", "bundle"));
-            player.setInventory("Laptop");
             cout << "You spent 15 energy points." << endl;
         player.setEnergy(player.getEnergy() - 15);
         }
@@ -383,7 +381,6 @@ void Game::ProcessStoreChoice(int choice) {
         else {
             player.addItem(Item("Notebook", "bundle"));
             cout << "You spent 5 energy points." << endl;
-            player.setInventory("Notebook");
             player.setEnergy(player.getEnergy() - 5);
         }
     }
@@ -396,7 +393,6 @@ void Game::ProcessStoreChoice(int choice) {
         else {
             player.addItem(Item("Pen", "bundle"));
             cout << "You spent 5 energy points." << endl;
-            player.setInventory("Pen");
             player.setEnergy(player.getEnergy() - 5);
         }
         
@@ -409,7 +405,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Calculator", "bundle"));
-            player.setInventory("Calculator");
             cout << "You spent 10 energy points." << endl;
             player.setEnergy(player.getEnergy() - 10);
         }
@@ -422,7 +417,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Charger", "bundle"));
-            player.setInventory("Charger");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -435,7 +429,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Water Bottle", "bundle"));
-            player.setInventory("Water Bottle");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -448,7 +441,6 @@ void Game::ProcessStoreChoice(int choice) {
         }
         else {
             player.addItem(Item("Sandwich", "bundle"));
-            player.setInventory("Sandwich");
             cout << "You spent 5 energy points." << endl;
             player.setEnergy(player.getEnergy() - 5);
         }
@@ -571,7 +563,7 @@ void Game::displayEnding() {
     if (checkWin()) {
         cout << "Congratulations! You have survived midterms!" << endl;
     } else if (checkLoss()) {
-        cout << "Game Over! You have lost the game!" << endl;
+        cout << "Game Over! You have lost the game. You must complete you tasks in less than 8 days." << endl;
     } else if (checkBurnout()) {
         cout << "You have burned out! Better luck next time!" << endl;
     }
