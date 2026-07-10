@@ -43,6 +43,6 @@ class Game {
         void talkToFriend(string friendName);
         bool CheckIfCompleteBundle();
 
-};
+};//update 7/9
 
 #endif

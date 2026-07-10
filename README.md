@@ -1,7 +1,7 @@
 # csci1300-final-project
 # Final Project
 
-## Theme
+## Theme //Updated
 Surviving College Midterms. You are a college student that must maintain energy and friendship levels. You must also complete a backpack bundle with everything you need to study. You only have one week to prepare for your exams. There are multiple places on campus you can go and multiple characters you can interact with. Each adventure has a unique cost/gain of friendship and energy points. While there are extra credit options available, you must also be warry of burnout. 
 
 ## Goal

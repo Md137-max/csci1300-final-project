@@ -5,7 +5,7 @@
 #include <string>
 
 using namespace std;
-
+//Make the parent class
 class Character {
     private:
         string name;

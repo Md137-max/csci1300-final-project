@@ -19,3 +19,4 @@ Character::Character(string n, string loc) {
     void Character::setLocation(string newLocation) {
             location = newLocation;
         }
+        //updated 7/9

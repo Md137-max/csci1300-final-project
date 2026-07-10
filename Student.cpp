@@ -48,14 +48,14 @@ string Student::getInventory(int index) {
 }
 
 
-void Student::moveTo(string locationName) {
+void Student::moveTo(string locationName) { //Change location
     setLocation(locationName);
 }
 string Student::getCurrentLocation() {
     return getLocation();
 }
 
-void Student::addItem(Item item) {
+void Student::addItem(Item item) { //Add things to backpack
     inventory.push_back(item.getName());
 }
 void Student::displayInventory() {
@@ -68,7 +68,7 @@ void Student::displayInventory() {
     
 }
 
-bool Student::hasItem(string itemName) {
+bool Student::hasItem(string itemName) { //check backpack contents
     for (size_t i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             return true;
@@ -76,7 +76,7 @@ bool Student::hasItem(string itemName) {
     }
     return false;
 }
-void Student::removeItem(string itemName) {
+void Student::removeItem(string itemName) { //Haven't used this yet???
     for (size_t i = 0; i < inventory.size(); i++) {
         if (inventory[i] == itemName) {
             inventory[i] = "";

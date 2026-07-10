@@ -13,7 +13,7 @@ Game::Game(Student P, Friend fL[5], string Loc[6], string bI[8])
     }
 }
 
-void Game::CreatePlayer() {
+void Game::CreatePlayer() { // customize your player
     cout << "Choose a name for your character: " << endl;
     cout << "1. Straight A Student" << endl;
     cout << "2. Social Butterfly" << endl;
@@ -95,7 +95,7 @@ void Game::introduceLocations() {
     cout << "4. Classroom - go here to gain study hours." << endl;
     cout << "5. Store - go here to buy items and complete your backpack bundle." << endl;
 }
-void Game::displayDashboard() {
+void Game::displayDashboard() { // Display current stats
     cout << "Day: " << player.getCurrentDay() << " / 7" << endl;
     cout << "Energy Points: " << player.getEnergy() << endl;
     cout << "Friendship Points: " << player.getFriendship() << " / 15" << endl;
@@ -118,14 +118,14 @@ void Game::displayDashboard() {
 
 
 
-void Game::displayMap() {
+void Game::displayMap() { //Complete later
 
 
 }
 
 
 
-void Game::showMainMenu() {
+void Game::showMainMenu() { //Main options for user
     int choice;
 
     cout << "What would you like to do (pick a number 1-5)?" << endl;
@@ -150,7 +150,7 @@ void Game::displayInventory() {
     player.displayInventory();
 }
 
-void Game::processChoice(int choice) {
+void Game::processChoice(int choice) { //Process player choices from main menu
     if (choice == 1) {
         movePlayer();
     } else if (choice == 2) {
@@ -177,7 +177,7 @@ void Game::processChoice(int choice) {
 
 
 
-void Game::movePlayer() {
+void Game::movePlayer() { //Move location
     string newLocation;
     cout << "Where would you like to move? (Dorm, Library, Dining Hall, Gym, Classroom, Store). Please type only one option." << endl;
     cin.ignore(10000, '\n');
@@ -189,7 +189,7 @@ void Game::movePlayer() {
 
 
 
-void Game::locationMenu(string newLocation) {
+void Game::locationMenu(string newLocation) { //Choices at different locations
 
 
     int choice;
@@ -344,7 +344,7 @@ void Game::locationMenu(string newLocation) {
 
 
 
-void Game::ProcessStoreChoice(int choice) {
+void Game::ProcessStoreChoice(int choice) { //Processing the choices made at the store (adding to inventory)
     if (choice == 1) {
         cout << "You chose to buy a Textbook." << endl;
         if (player.getEnergy() < 10) {
@@ -457,7 +457,7 @@ void Game::ProcessStoreChoice(int choice) {
 
 
 
-void Game::talkToFriend(string friendName) {
+void Game::talkToFriend(string friendName) { //Talk to other characters
     for (int i = 0; i < 5; i++) {
         if (friendList[i].getName() == friendName) {
             cout << "Talking to " << friendList[i].getName() << "..." << endl;
@@ -472,7 +472,7 @@ void Game::talkToFriend(string friendName) {
 
 
 
-void Game::talkToCharacter() {
+void Game::talkToCharacter() { //Talk to oter characters
     if (player.getCurrentLocation() == "Library") {
         cout << "Let's talk to Eleanor! You gain one friendship point, but it costs you one energy point." << endl;
         cout << "Eleanor loves to spend time reading in the library and drinking coffee" << endl;
@@ -497,7 +497,7 @@ void Game::talkToCharacter() {
 
 
 
-void Game::endDay() {
+void Game::endDay() { //Start a new day
     int currentDay = player.getCurrentDay();
     cout << "Ending the day..." << endl;
      player.setCurrentDay(currentDay + 1);
@@ -507,7 +507,7 @@ void Game::endDay() {
 
 
 
-bool Game::checkWin() {
+bool Game::checkWin() { //Did you meet the winning conditions?
     if (player.getFriendship() >= 15 && player.getStudyHours() >= 20) {
         return true;
     }
@@ -516,7 +516,7 @@ bool Game::checkWin() {
 
 
 
-bool Game::checkBurnout() {
+bool Game::checkBurnout() { //Did you exceed EC points?
     if (player.getTiredStudent() > 3) {
         return true;
     }
@@ -525,7 +525,7 @@ bool Game::checkBurnout() {
 
 
 
-bool Game::isBundleComplete() {
+bool Game::isBundleComplete() { //Did you collect all itmes?
     if (player.getInventorySize() < 8) {
         return false;
     }
@@ -544,7 +544,7 @@ bool Game::isBundleComplete() {
 return false;
 }
 
-bool Game::checkLoss() {
+bool Game::checkLoss() { //Check win/loss conditions
     if (player.getEnergy() <= 0 || player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
         return true;
     }
@@ -559,7 +559,7 @@ bool Game::CheckIfCompleteBundle(){
 }
 
 
-void Game::displayEnding() {
+void Game::displayEnding() { //Show outcomes
     if (checkWin()) {
         cout << "Congratulations! You have survived midterms!" << endl;
     } else if (checkLoss()) {

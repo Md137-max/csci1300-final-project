@@ -40,14 +40,14 @@ int main() {
 
         Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
    
-game.CreatePlayer();
-game.startGame();
-game.introduceCharacters();
-game.introduceItems();
-game.introduceLocations();
+game.CreatePlayer(); //customize
+game.startGame(); //introduction
+game.introduceCharacters(); //Summary
+game.introduceItems(); //Summary
+game.introduceLocations(); //Sumary
 
 
-int TimesChoice = 0;
+int TimesChoice = 0; //Keep track of actions (only 5 per day)
 
 while (true) {
     // Display dashboard / inventory / map

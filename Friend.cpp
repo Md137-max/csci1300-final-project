@@ -8,6 +8,6 @@ void Friend::setFriendshipLevel(int level) {
     friendshipLevel = level;
 }
 
-int Friend::getFriendshipLevel() {
+int Friend::getFriendshipLevel() { //show player's current friendship points
     return friendshipLevel;
 }

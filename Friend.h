@@ -6,7 +6,7 @@
 #include "Character.h"
 
 using namespace std;
-
+// Child class or character
 class Friend : public Character {
     private:
         int friendshipLevel;
@@ -16,5 +16,5 @@ class Friend : public Character {
         int getFriendshipLevel();
 };
 
-
+//updated 7/9
 #endif

@@ -12,7 +12,7 @@
             return type;
         }
 
-        bool Item::isBundleItem() {
+        bool Item::isBundleItem() { //haven't used yet???
             return type == "bundle";
         }
         void Item::displayItem() {
