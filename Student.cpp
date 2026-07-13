@@ -2,7 +2,7 @@
 
 Student::Student(string n, string loc) 
 : Character(n, loc) {
-    EnergyPoints = 20;
+    EnergyPoints = 30;
     FriendshipPoints = 0;
     CurrentDay = 1;
     studyHours = 0;

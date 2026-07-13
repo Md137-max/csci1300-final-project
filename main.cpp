@@ -40,8 +40,9 @@ int main() {
 
         Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
    
-game.CreatePlayer(); //customize
 game.startGame(); //introduction
+game.CreatePlayer(); //customize
+
 game.introduceCharacters(); //Summary
 game.introduceItems(); //Summary
 game.introduceLocations(); //Sumary

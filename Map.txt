@@ -1,38 +1,12 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <memory>
-
-using namespace std;
-
-struct Location {
-    string name;
-    string description;
-};
-
-    // Define the 5 locations as pure data objects
-    vector<Location> mapLocations = {
-        {"Dorm", "A cozy and nicely-decorated shoebox."},
-        {"Library", "A dusty, slightly haunted, but well-loved study spot."},
-        {"Dining Hall", "A large complex that students flock to despite mediocore food"},
-        {"Gym", "A necessary escape from studying, despite being small, smelly, and crowded."},
-        {"Classroom", "A large room full of tiny seats with even smaller desks, one of Prof. Mosunov's favorite places."}
-    };
-
-    // Track current location by pointing directly to an item in the list
-    // We start the player at index 0 (Dorm)
-    size_t currentPlayerIndex = 0; 
-
-    // Print the non-grid world state
-    cout << "--- CORNELL UNIVERSITY MAP---\n";
-
-    for (size_t i = 0; i < mapLocations.size(); ++i) {
-        // If this is where the player is, show the star (*)
-        if (i == currentPlayerIndex) {
-            cout << "[*] " << mapLocations[i].name << " - " << mapLocations[i].description << " (YOU ARE HERE!!! )\n";
-        } else {
-            cout << "[ ] " << mapLocations[i].name << " - " << mapLocations[i].description << "\n";
-        }
-    }
-
-   
+Dorm
+A cozy and nicely-decorated shoebox.
+Library 
+A dusty, slightly haunted, but well-loved study spot.
+Dining Hall
+A large complex that students flock to despite mediocore food.
+Gym
+A necessary escape from studying, despite being small, smelly, and crowded.
+Classroom
+A large room full of tiny seats with even smaller desks, one of Prof. Mosunov's favorite places.
+Store
+A place with everything a college student needs to succeed.
