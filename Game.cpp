@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <fstream>
+#include <vector>
 
 Game::Game(Student P, Friend fL[5], string Loc[6], string bI[8])
     : player(P), friendList{fL[0], fL[1], fL[2], fL[3], fL[4]} {
@@ -97,6 +98,7 @@ void Game::introduceLocations() {
     cout << "5. Store - go here to buy items and complete your backpack bundle." << endl;
 }
 void Game::displayDashboard() { // Display current stats
+    cout << "----- Game Status -----" << endl;
     cout << "Day: " << player.getCurrentDay() << " / 7" << endl;
     cout << "Energy Points: " << player.getEnergy() << endl;
     cout << "Friendship Points: " << player.getFriendship() << " / 15" << endl;
@@ -117,11 +119,15 @@ void Game::displayDashboard() { // Display current stats
 }
 
 
-
-
 #include <fstream> //use file I/O here
 
-void Game::displayMap() { //will have a list of locations with the current one marked with a star
+void Game::displayMap() {
+    ifstream inFile("Map.txt");
+
+    if (!inFile.is_open()) {
+        cout << "Could not open Map.txt" << endl;
+        return;
+    }
 
     struct Location {
         string name;
@@ -129,34 +135,31 @@ void Game::displayMap() { //will have a list of locations with the current one m
     };
 
     vector<Location> mapLocations;
+    Location temp;
 
-    ifstream inFile("Map.txt"); // Get text from Map.txt
-
-    if (!inFile.is_open()) {
-        cout << "Error: could not open Map.txt" << endl;
-        return;
-    }
-
-    string name;
-    string description;
-
-    while (getline(inFile, name) && getline(inFile, description)) { //getting input of name and description from txt file, adding to mapLocations vector
-        mapLocations.push_back({name, description});
+    while (getline(inFile, temp.name) &&
+           getline(inFile, temp.description)) {
+        mapLocations.push_back(temp);
     }
 
     inFile.close();
 
-    cout << "--- CORNELL UNIVERSITY MAP ---" << endl; // map header
+    cout << "--- CORNELL UNIVERSITY MAP ---" << endl;
 
-    string currentLocation = player.getCurrentLocation();
-
-    for (size_t i = 0; i < mapLocations.size(); i++) { //marking current location with a star
-        if (mapLocations[i].name == currentLocation) {
-            cout << "[*] " << mapLocations[i].name << " - " << mapLocations[i].description << " (YOU ARE HERE!!!)" << endl;
+    for (size_t i = 0; i < mapLocations.size(); i++) {
+        if (mapLocations[i].name == player.getCurrentLocation()) {
+            cout << "[*] ";
         } else {
-            cout << "[ ] " << mapLocations[i].name << " - " << mapLocations[i].description << endl;
+            cout << "[ ] ";
         }
+
+        cout << mapLocations[i].name
+             << " - "
+             << mapLocations[i].description
+             << endl;
     }
+
+    cout << "* = You are here" << endl;
 }
 
 
@@ -170,6 +173,7 @@ void Game::showMainMenu() { //Main options for user
     cout << "3. View your inventory" << endl;
     cout << "4. View your backpack progress" << endl;
     cout << "5. End the day" << endl;
+    cout << "6. Sell a backpack item" << endl;
 
    
     if(!(cin >> choice)) { //Validate input
@@ -204,6 +208,10 @@ void Game::processChoice(int choice) { //Process player choices from main menu
     } else if (choice == 5) {
         cout << "We are ending the day! See you tomorrow" << endl;
         endDay(); }
+    else if (choice == 6) {
+        cout << "You chose to sell an item" << endl;
+        SellingItems();
+    }
     
      else {
         cout << "Invalid choice. Please try again." << endl;
@@ -236,14 +244,14 @@ void Game::locationMenu(string newLocation) { //Choices at different locations
         cout << "Your roommate Kayra is here. Would you like to talk to her and increase your friendship points (-1 Energy point)?" << endl;
     
         cout << "What would you like to do?" << endl;
-        cout << "1. Rest (+5 energy)" << endl;
+        cout << "1. Rest (+8 energy)" << endl;
         cout << "2. Talk to Kayra" << endl;
         cout << "3. Leave" << endl;
 
         cin >> choice;
 
         if (choice == 1) {
-            player.setEnergy(player.getEnergy() + 5);
+            player.setEnergy(player.getEnergy() + 8);
         }
         else if (choice == 2) {
             talkToFriend("Kayra");
@@ -490,6 +498,31 @@ void Game::ProcessStoreChoice(int choice) { //Processing the choices made at the
 }
 
 
+void Game::SellingItems() {
+    cout << "What item would you like to sell? (+4 study hours)" << endl;
+    cout << "If you've decided not to sell anything, enter: NO " << endl;
+    player.displayInventory();
+    string SellItem;
+    cin.ignore(100000, '\n');
+    getline (cin, SellItem);
+
+    if (SellItem == "Textbook" || SellItem == "Laptop" || SellItem == "Pen" || SellItem == "Charger" || SellItem == "Sandwich" || SellItem == "Calculator" || SellItem == "Water Bottle" || SellItem == "Notebook") {
+        if(player.hasItem(SellItem)) {
+        cout << "You have sold: " << SellItem << " for 4 study hours" << endl;
+        player.setStudyHours(player.getStudyHours() + 4);
+        player.removeItem(SellItem);
+        }
+        else {
+            cout << "You don't have that item" << endl;
+        }
+    }
+    else if (SellItem == "NO") {
+        cout << "You have not sold anything" << endl;
+    }
+    else {
+        cout << "That is not a valid item" << endl;
+    }
+    }
 
 
 
@@ -544,7 +577,7 @@ void Game::endDay() { //Start a new day
 
 
 bool Game::checkWin() { //Did you meet the winning conditions?
-    if (player.getFriendship() >= 15 && player.getStudyHours() >= 20) {
+    if (player.getFriendship() >= 15 && player.getStudyHours() >= 20 && CheckIfCompleteBundle() && player.getEnergy() > 0) {
         return true;
     }
     return false;
@@ -581,7 +614,7 @@ return false;
 }
 
 bool Game::checkLoss() { //Check win/loss conditions
-    if (player.getEnergy() <= 0 || player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
+    if (player.getEnergy() < 0 || player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
         return true;
     }
     return false;
@@ -597,15 +630,17 @@ bool Game::CheckIfCompleteBundle(){
 
 void Game::displayEnding() { //Show outcomes
     if (checkWin()) {
-        cout << "Congratulations! You have survived midterms!" << endl;
-    } else if (checkLoss()) {
-        cout << "Game Over! You have lost the game. You must complete you tasks in less than 8 days." << endl;
-    } else if (checkBurnout()) {
-        cout << "You have burned out! Better luck next time!" << endl;
+        cout << "Game Over! Congratulations, you have survived midterms!" << endl;
+    }  else if (checkBurnout()) {
+        cout << "Game Over! You have burned out. You may not use the extra credit option more than 3 times. Better luck next time!" << endl;
     }
-    else if (!CheckIfCompleteBundle()) {
-        cout << "Backpack items missing, you have failed midterms! Better luck next time" << endl;
+     else if (!CheckIfCompleteBundle()) {
+        cout << "Game Over! Backpack items missing, you have failed midterms! Better luck next time" << endl;
     }
+    else if (checkLoss()) {
+        cout << "Game Over! You have lost the game. You must complete you tasks in less than 8 days without going below 0 energy. Better luck next time." << endl;
+    }
+
      else {
         cout << "The game is still ongoing." << endl;
     }

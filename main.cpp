@@ -53,7 +53,7 @@ int TimesChoice = 0; //Keep track of actions (only 5 per day)
 while (true) {
     // Display dashboard / inventory / map
     game.displayDashboard();
-    game.displayInventory();
+    
     game.displayMap(); //Use file I/O
 
     

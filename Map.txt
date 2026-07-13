@@ -1,6 +1,6 @@
 Dorm
 A cozy and nicely-decorated shoebox.
-Library 
+Library
 A dusty, slightly haunted, but well-loved study spot.
 Dining Hall
 A large complex that students flock to despite mediocore food.

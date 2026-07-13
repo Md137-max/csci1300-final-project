@@ -42,6 +42,7 @@ class Game {
         void displayEnding();
         void talkToFriend(string friendName);
         bool CheckIfCompleteBundle();
+        void SellingItems();
 
 };//update 7/9
 
