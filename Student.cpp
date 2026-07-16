@@ -60,7 +60,7 @@ void Student::addItem(Item item) { //Add things to backpack
 }
 void Student::displayInventory() { //Show itmes in inventory
     if (inventory.empty()) {
-        cout << "Inventory is empty." << endl;
+        cout << "Inventory is empty. Buy itmes from the store to add to your inventory." << endl;
         return;
     }
     for (size_t i = 0; i < inventory.size(); i++) {

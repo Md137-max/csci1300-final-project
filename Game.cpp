@@ -270,6 +270,12 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
             talkToFriend("Kayra");
             cout << "You talked to Kayra and increased your friendship points!" << endl;
         }
+        else if (choice == 3) {
+            cout << "You are leaving the dorm" << endl;
+        }
+        else {
+            cout << "Invalid choice. Returning to main menu." << endl;
+        }
     }
 
            
@@ -299,6 +305,9 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
         else if (choice == 3) {
             cout << "Leaving the library." << endl;
         }
+        else {
+            cout << "Invalid choice. returning to main menu. " << endl;
+        }
     }
 
 
@@ -324,6 +333,9 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
         else if (choice == 3) {
             cout << "Leaving the Dining Hall." << endl;
         }
+        else {
+            cout << "Invalid choice. returning to main menu. " << endl;
+        }
     }
 
     else if (newLocation == "Gym") {
@@ -341,6 +353,9 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
         }
         else if (choice == 2) {
             cout << "Enjoy some alone time" << endl;
+        }
+        else {
+            cout << "Invalid choice. returning to main menu. " << endl;
         }
         }
 
@@ -517,6 +532,9 @@ void Game::SellingItems() { //Can sell itmes once they are in your inventory, a 
     cout << "If you've decided not to sell anything, enter: NO " << endl;
     cout << "Available items to sell (enter exactly as shown): " << endl;
     player.displayInventory();
+       if (player.getInventorySize() == 0) {   //If inventory is empty, return to main function
+        return;
+    }
     string SellItem;
     cin.ignore(100000, '\n');
     getline (cin, SellItem);
@@ -536,7 +554,7 @@ void Game::SellingItems() { //Can sell itmes once they are in your inventory, a 
         return;
     }
     else {
-        cout << "That is not a valid item" << endl;
+        cout << "That is not a valid item. Make sure to type item exactly as shown. Returning to main menu." << endl;
     }
     }
 
@@ -552,7 +570,7 @@ void Game::talkToFriend(string friendName) { //Talk to other characters for frie
             return;
         }
     }
-    cout << "Friend not found." << endl;
+    cout << "Friend not found. Move to another location to talk to a friend." << endl;
 }
 
 
@@ -577,7 +595,7 @@ void Game::talkToCharacter() { //Talk to other characters if they are in the sam
          cout <<  "Let's talk to Kayra! You gain 2 friendship points, but it costs you one energy point." << endl;
         talkToFriend("Kayra");
     } else {
-        cout << "There is no one to talk to here." << endl;
+        cout << "There is no one to talk to here. Move somewhere else." << endl;
     }
 }
 
@@ -660,7 +678,7 @@ void Game::displayEnding() { //Show outcomes
         cout << "Game Over! You have burned out. You may not use the extra credit option more than 3 times. Better luck next time!" << endl;
     }
      else if (!CheckIfCompleteBundle()) {
-        cout << "Game Over! Backpack items missing, you have failed midterms! Better luck next time" << endl;
+        cout << "Game Over! Backpack items missing, you have failed midterms! You must collect all itmes in 7 days. Better luck next time" << endl;
     }
     else if (checkLoss()) {
         cout << "Game Over! You have lost the game. You must complete you tasks in less than 8 days without going below 0 energy. Better luck next time." << endl;
