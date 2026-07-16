@@ -253,7 +253,7 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
 
     if (newLocation == "Dorm") {
         cout << "You are in the Dorm. You can rest here to regain energy (+8 energy)." << endl;
-        player.setEnergy(player.getEnergy() + 8);
+        
         cout << "Your roommate Kayra is here. Would you like to talk to her and increase your friendship points (-1 Energy point)?" << endl;
     
         cout << "What would you like to do?" << endl;
@@ -268,7 +268,6 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
         }
         else if (choice == 2) {
             talkToFriend("Kayra");
-            cout << "You talked to Kayra and increased your friendship points!" << endl;
         }
         else if (choice == 3) {
             cout << "You are leaving the dorm" << endl;
@@ -285,7 +284,7 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
         cout << "Your friend Eleanor is here. You can study with her to increase your friendship points." << endl;
         cout << "What would you like to do?" << endl;
         cout << "1. Study (+4 study hours, -6 energy)" << endl;
-        cout << "2. Talk to Eleanor (+2 friendship, -energy)" << endl;
+        cout << "2. Talk to Eleanor (+2 friendship, -1 energy)" << endl;
         cout << "3. Leave" << endl;
 
         int choice;
@@ -297,16 +296,16 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
             cout << "You studied in the library." << endl;
             
         }
-        else if (choice == 2) {
+        else if (choice == 2 && player.getEnergy() > 2) {
             talkToFriend("Eleanor");
-            player.setEnergy(player.getEnergy() - 1);
-            cout << "You talked to Eleanor." << endl;
+            
+            
         }
         else if (choice == 3) {
             cout << "Leaving the library." << endl;
         }
         else {
-            cout << "Invalid choice. returning to main menu. " << endl;
+            cout << "Invalid choice or you didn't have enough energy. returning to main menu. " << endl;
         }
     }
 
@@ -321,7 +320,7 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
 
         cin >> choice;
 
-        if (choice == 1) {
+        if (choice == 1 && player.getEnergy() > 2) {
             player.setFriendship(player.getFriendship() + 2);
             player.setEnergy(player.getEnergy() - 2);
             cout << "You talked about your exams with Daniel" << endl;
@@ -334,28 +333,27 @@ void Game::locationMenu(string newLocation) { //Choices at different locations, 
             cout << "Leaving the Dining Hall." << endl;
         }
         else {
-            cout << "Invalid choice. returning to main menu. " << endl;
+            cout << "Invalid choice or you didn't have enough energy. returning to main menu. " << endl;
         }
     }
 
     else if (newLocation == "Gym") {
         cout << "You are in the Gym. You can exercise here with your friend Maya to increase your friendship points." << endl;
-        cout << "Talk to Maya (-2 energy, +3 friendship)?" << endl;
+        cout << "Talk to Maya (-1 energy, +2 friendship)?" << endl;
         cout << "1. Yes" << endl;
         cout << "2. No" << endl;
         int choice;
         cin >> choice;
-        if (choice == 1) {
+        if (choice == 1 && player.getEnergy() > 2) {
             cout << "Hello, Maya! Let's exercise together! " << endl;
             talkToFriend("Maya");
-            player.setEnergy(player.getEnergy() - 2);
-            player.setFriendship(player.getFriendship() + 3);
+            
         }
         else if (choice == 2) {
             cout << "Enjoy some alone time" << endl;
         }
         else {
-            cout << "Invalid choice. returning to main menu. " << endl;
+            cout << "Invalid choice or you didn't have enough energy. returning to main menu. " << endl;
         }
         }
 
@@ -564,13 +562,15 @@ void Game::SellingItems() { //Can sell itmes once they are in your inventory, a 
 
 void Game::talkToFriend(string friendName) { //Talk to other characters for friendship points
     for (int i = 0; i < 5; i++) {
-        if (friendList[i].getName() == friendName) {
+        if (friendList[i].getName() == friendName && player.getEnergy() > 1) {
             cout << "Talking to " << friendList[i].getName() << "..." << endl;
+            cout << "You gained 2 friendship points!" << endl;
             player.setFriendship(player.getFriendship() + 2);
+            player.setEnergy(player.getEnergy() - 1);
             return;
         }
     }
-    cout << "Friend not found. Move to another location to talk to a friend." << endl;
+    cout << "Friend not found or you do not have enough energy. You can move to another location to talk to a friend." << endl;
 }
 
 
