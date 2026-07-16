@@ -12,9 +12,7 @@
             return type;
         }
 
-        bool Item::isBundleItem() { //haven't used yet???
+        bool Item::isBundleItem() { 
             return type == "bundle";
         }
-        void Item::displayItem() {
-            cout << "Item: " << name << " (Type: " << type << ")" << endl;
-        }
+        

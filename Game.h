@@ -18,9 +18,10 @@ class Game {
         string bundleItems[8];
     
     public:
-        Game(Student player, Friend friendList[5], string locations[6], string bundleItems[8]);
+        Game(Student player, Friend friendList[5], string locations[6], string bundleItems[8]); //Constructor
 
-        void startGame();
+        //List important functions
+        void startGame(); 
         void CreatePlayer();
         void introduceCharacters();
         void introduceItems();

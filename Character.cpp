@@ -1,6 +1,6 @@
 #include "Character.h"
 
-
+//Character is the parent class
 Character::Character(string n, string loc) {
     name = n;
     location = loc;
@@ -12,11 +12,11 @@ Character::Character(string n, string loc) {
     string Character::getName() {
             return name;
         }
-    void Character::setName(string newName) {
+    void Character::setName(string newName) { //Change name
             name = newName;
         }
 
-    void Character::setLocation(string newLocation) {
+    void Character::setLocation(string newLocation) { //Change location
             location = newLocation;
         }
         //updated 7/9

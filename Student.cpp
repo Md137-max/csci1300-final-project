@@ -2,7 +2,7 @@
 
 Student::Student(string n, string loc) 
 : Character(n, loc) {
-    EnergyPoints = 30;
+    EnergyPoints = 30; //Set up beginning stats for a student/player
     FriendshipPoints = 0;
     CurrentDay = 1;
     studyHours = 0;
@@ -58,14 +58,17 @@ string Student::getCurrentLocation() {
 void Student::addItem(Item item) { //Add things to backpack
     inventory.push_back(item.getName());
 }
-void Student::displayInventory() {
-    cout << "Inventory: " << endl;
+void Student::displayInventory() { //Show itmes in inventory
+    if (inventory.empty()) {
+        cout << "Inventory is empty." << endl;
+        return;
+    }
     for (size_t i = 0; i < inventory.size(); i++) {
-        if (!inventory[i].empty()) {
-            cout << "- " << inventory[i] << endl;
+        cout << inventory[i] << endl;
+        if (i < inventory.size() - 1) {
+            cout << ", " << endl; //add a comma after each item to make a list
         }
     }
-    
 }
 
 bool Student::hasItem(string itemName) { //check backpack contents
@@ -76,16 +79,16 @@ bool Student::hasItem(string itemName) { //check backpack contents
     }
     return false;
 }
-void Student::removeItem(string itemName) { //Haven't used this yet???
+void Student::removeItem(string item) { //Remove an item from the inventory, use later on for selling an item
     for (size_t i = 0; i < inventory.size(); i++) {
-        if (inventory[i] == itemName) {
-            inventory[i] = "";
-            break;
+        if (inventory[i] == item) {
+            inventory.erase(inventory.begin() + i);
+            return;
         }
     }
 }
 
- int Student::getTiredStudent() {
+ int Student::getTiredStudent() { //Track shortcut 
     return TiredStudent;
 }
 void Student::setTiredStudent(int amount) {

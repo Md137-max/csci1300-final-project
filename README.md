@@ -10,13 +10,13 @@ Acheive 20 study hours, 15 friendship points, and avoid burnout. You may not hav
 ## How to Compile
 
 ```bash
-g++ *.cpp -o game
+g++ -Wall -Wpedantic -Werror -std=c++17 main.cpp Character.cpp Friend.cpp Item.cpp Student.cpp Game.cpp -o game.exe
 ```
 
 ## How to Run
 
 ```bash
-./game
+./game.exe
 ```
 
 ## How to Play

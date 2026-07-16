@@ -11,6 +11,7 @@
 using namespace std;
 
 int main() {
+    //Main flow/Outline:
     // Start game
     // Create player
     // Create items, characters, locations, and bundle
@@ -23,15 +24,15 @@ int main() {
     // Check win/loss condition
     // Display final ending
     
-//Start game
-
-         
-        Friend friends[5] = {
-            Friend ("Eleanor", "Library", 10),
-            Friend("Daniel", "Dining Hall", 10),
-            Friend("Maya", "Gym", 10),
-            Friend("Professor Mosunov", "Classroom", 10),
-            Friend("Kayra", "Dorm", 10)
+    
+    
+    //Start game  
+        Friend friends[5] = { //Set friends and the locations they have 
+            Friend ("Eleanor", "Library"),
+            Friend("Daniel", "Dining Hall"),
+            Friend("Maya", "Gym"),
+            Friend("Professor Mosunov", "Classroom"),
+            Friend("Kayra", "Dorm")
         };
         string locations[6] = {
               "Dorm", "Library", "Dining Hall", "Gym", "Classroom", "Store"};
@@ -40,27 +41,28 @@ int main() {
 
         Game game(Student("Player", "Dorm"), friends, locations, bundleItems);
    
+        
 game.startGame(); //introduction
-game.CreatePlayer(); //customize
+game.CreatePlayer(); //customize name
 
-game.introduceCharacters(); //Summary
-game.introduceItems(); //Summary
-game.introduceLocations(); //Sumary
+game.introduceCharacters(); //Summary of characters
+game.introduceItems(); //Summary of items
+game.introduceLocations(); //Sumary of locations
 
 
 int TimesChoice = 0; //Keep track of actions (only 5 per day)
 
 while (true) {
-    // Display dashboard / inventory / map
+    // Display dashboard 
     game.displayDashboard();
-    
+   
+    //Display map
     game.displayMap(); //Use file I/O
 
-    
     // Ask player what they want to do and process choice
     game.showMainMenu();
 
-    TimesChoice++;
+    TimesChoice++; //Keep track of actions
 
 
     // Check win/loss condition

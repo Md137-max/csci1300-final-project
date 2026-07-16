@@ -11,7 +11,7 @@ class Friend : public Character {
     private:
         int friendshipLevel;
     public:
-        Friend(string name, string location, int friendshipLevel);
+        Friend(string name, string location);
         void setFriendshipLevel(int level);
         int getFriendshipLevel();
 };

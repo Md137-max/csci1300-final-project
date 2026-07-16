@@ -17,7 +17,7 @@ class Item {
         string getType();
 
         bool isBundleItem();
-        void displayItem();
-}; //updated 7/9
+        
+}; 
 
 #endif

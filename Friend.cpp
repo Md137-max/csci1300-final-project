@@ -1,7 +1,7 @@
 #include "Friend.h"
 
-Friend::Friend(string n, string Loc, int FL) : Character(n, Loc) {
-    friendshipLevel = FL;
+Friend::Friend(string n, string Loc) : Character(n, Loc) {
+    
 }
 
 void Friend::setFriendshipLevel(int level) {
