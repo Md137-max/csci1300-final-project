@@ -59,7 +59,7 @@ void Game::startGame() { //Provides introduction
    cout << "You must manage your time wisely, study, and interact with friends over the course of the week to succeed." << endl;
    cout << "You start with " << player.getEnergy() << " energy points and "<< player.getFriendship() << " friendship points." << endl;
    cout << "your goal is to reach at least 15 friendship points and 20 study hours by the end of day 7." << endl;
-   cout << "If your energy points drop to 0, or if you reach day 8, you will fail." << endl;
+  
    cout << "If you become too tired from doing extra credit work, you will also fail." << endl;
    cout << "Good luck!" << endl;
    
@@ -613,7 +613,7 @@ void Game::endDay() { //Start a new day, time control
 
 
 bool Game::checkWin() { //Did you meet the winning conditions?
-    if (player.getFriendship() >= 15 && player.getStudyHours() >= 20 && CheckIfCompleteBundle() && player.getEnergy() > 0) {
+    if (player.getFriendship() >= 15 && player.getStudyHours() >= 20 && CheckIfCompleteBundle()) {
         return true;
     }
     return false;
@@ -653,7 +653,7 @@ return false;
 
 
 bool Game::checkLoss() { //Check win/loss conditions
-    if (player.getEnergy() < 0 || player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
+    if (player.getCurrentDay() > 7 || player.getTiredStudent() > 3) {
         return true;
     }
     return false;
